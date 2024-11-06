@@ -34,13 +34,13 @@ jobs:
         run: echo "${{ github.sha }}" > current_commit.txt
 
       - name: Upload current commit hash
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: current-commit
           path: current_commit.txt
 
       - name: Download last successful commit hash
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: last-successful-commit
 
