@@ -21,15 +21,6 @@ jobs:
           python manage.py test || echo "Tests failed" > test_status.txt
         continue-on-error: true
 
-      - name: Check test results
-        run: |
-          if grep -q "Tests failed" test_status.txt; then
-            echo "Tests did not pass"
-            exit 1
-          else
-            echo "Tests passed"
-          fi
-
       - name: Save current commit hash
         run: echo "${{ github.sha }}" > current_commit.txt
 
@@ -49,3 +40,12 @@ jobs:
           BAD_HASH: ${{ github.sha }}
           GOOD_HASH: $(cat last_successful_commit.txt || echo "initial_commit_hash")
         run: python bob.py
+
+      - name: Check test results
+        run: |
+          if grep -q "Tests failed" test_status.txt; then
+            echo "Tests did not pass"
+            exit 1
+          else
+            echo "Tests passed"
+          fi
